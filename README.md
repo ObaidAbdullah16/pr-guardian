@@ -5,6 +5,7 @@
 ![GitHub Action](https://img.shields.io/badge/GitHub%20Action-available-brightgreen)
 ![Go](https://img.shields.io/badge/built%20with-Go-00ADD8)
 ![License](https://img.shields.io/badge/license-MIT-blue)
+[![Live Demo](https://img.shields.io/badge/live%20demo-prguardian.obaidinfo.xyz-58a6ff)](https://prguardian.obaidinfo.xyz)
 
 ---
 
@@ -90,7 +91,7 @@ That's it. PR Guardian will automatically comment on every new PR.
 
 ## Live Demo
 
-Try the live checker at **[pr-guardian.obaidinfo.xyz](https://pr-guardian.obaidinfo.xyz)** — paste any public PR URL and see the checks run instantly.
+Try the live checker at **[prguardian.obaidinfo.xyz](https://prguardian.obaidinfo.xyz)** — paste any public PR URL and see the checks run instantly.
 
 ---
 
