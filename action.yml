@@ -1,0 +1,26 @@
+name: "PR Guardian"
+description: "Automatically checks Pull Requests for common contributor mistakes and posts a review comment."
+author: "Obaid"
+
+branding:
+  icon: "shield"
+  color: "blue"
+
+inputs:
+  github_token:
+    description: "GitHub token for API access and posting comments. Use secrets.GITHUB_TOKEN."
+    required: true
+    default: ${{ github.token }}
+  fail_on_error:
+    description: "Set to 'true' to fail the Action if any check fails."
+    required: false
+    default: "false"
+
+runs:
+  using: "docker"
+  image: "Dockerfile"
+  env:
+    GITHUB_TOKEN: ${{ inputs.github_token }}
+    GITHUB_REPOSITORY: ${{ github.repository }}
+    PR_NUMBER: ${{ github.event.pull_request.number }}
+    FAIL_ON_ERROR: ${{ inputs.fail_on_error }}

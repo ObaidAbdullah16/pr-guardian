@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PR Guardian — Automated PR Review for GitHub</title>
+  <meta name="description" content="PR Guardian is a GitHub Action that automatically reviews Pull Requests for common mistakes — missing issue links, no changelog, bad branch names — and posts a checklist comment." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ─── NAVBAR ─────────────────────────────────────────────── -->
+  <nav class="navbar">
+    <div class="nav-inner">
+      <a href="#" class="logo">
+        <span class="logo-icon">🛡️</span>
+        <span>PR Guardian</span>
+      </a>
+      <div class="nav-links">
+        <a href="#how-it-works">How it works</a>
+        <a href="#checks">Checks</a>
+        <a href="#install">Install</a>
+        <a href="#checker" class="btn-nav">Try it live →</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ─── HERO ──────────────────────────────────────────────── -->
+  <section class="hero">
+    <div class="hero-badge">Open Source · GitHub Action · Written in Go</div>
+    <h1>Stop merging<br /><span class="accent">broken PRs.</span></h1>
+    <p class="hero-sub">
+      PR Guardian is a GitHub Action that automatically reviews every Pull Request
+      for common contributor mistakes and posts a checklist comment — before you even look at the code.
+    </p>
+    <div class="hero-actions">
+      <a href="#checker" class="btn-primary" id="hero-try-btn">Try it live</a>
+      <a href="#install" class="btn-secondary">Install the Action</a>
+    </div>
+
+    <!-- Mini PR comment preview -->
+    <div class="pr-preview">
+      <div class="pr-preview-header">
+        <span class="pr-preview-avatar">🛡️</span>
+        <span class="pr-preview-name">pr-guardian</span>
+        <span class="pr-preview-time">bot · just now</span>
+      </div>
+      <div class="pr-preview-body">
+        <p><strong>🛡️ PR Guardian Report</strong></p>
+        <p><strong>5 / 7 checks passed</strong></p>
+        <table class="preview-table">
+          <tr><td>README Updated</td><td class="pass">✅ Pass</td></tr>
+          <tr><td>Issue Linked</td><td class="fail">❌ Fail</td></tr>
+          <tr><td>Changelog Updated</td><td class="fail">❌ Fail</td></tr>
+          <tr><td>Contributor Guide Exists</td><td class="pass">✅ Pass</td></tr>
+          <tr><td>PR Description</td><td class="pass">✅ Pass</td></tr>
+          <tr><td>Branch Name Convention</td><td class="pass">✅ Pass</td></tr>
+          <tr><td>No Broken Links</td><td class="pass">✅ Pass</td></tr>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── HOW IT WORKS ─────────────────────────────────────── -->
+  <section class="section" id="how-it-works">
+    <h2>How it works</h2>
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-num">1</div>
+        <div class="flow-text">
+          <strong>PR Opened</strong>
+          <p>A contributor opens a Pull Request in your repo.</p>
+        </div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="flow-num">2</div>
+        <div class="flow-text">
+          <strong>Action Triggers</strong>
+          <p>PR Guardian runs automatically via GitHub Actions.</p>
+        </div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="flow-num">3</div>
+        <div class="flow-text">
+          <strong>7 Checks Run</strong>
+          <p>Checks README, issue link, changelog, branch name, and more.</p>
+        </div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="flow-num">4</div>
+        <div class="flow-text">
+          <strong>Comment Posted</strong>
+          <p>A formatted checklist is posted as a PR comment instantly.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CHECKS ───────────────────────────────────────────── -->
+  <section class="section bg-alt" id="checks">
+    <h2>What gets checked</h2>
+    <p class="section-sub">Seven automated checks that catch the most common PR mistakes.</p>
+    <div class="checks-grid">
+      <div class="check-card">
+        <div class="check-icon">📄</div>
+        <h3>README Updated</h3>
+        <p>Was README.md touched in this PR? New features need documentation.</p>
+      </div>
+      <div class="check-card">
+        <div class="check-icon">🔗</div>
+        <h3>Issue Linked</h3>
+        <p>Does the PR description reference an issue with <code>Fixes #123</code> or <code>Closes #</code>?</p>
+      </div>
+      <div class="check-card">
+        <div class="check-icon">📝</div>
+        <h3>Changelog Updated</h3>
+        <p>Was CHANGELOG.md updated so users know what changed in each release?</p>
+      </div>
+      <div class="check-card">
+        <div class="check-icon">📋</div>
+        <h3>Contributor Guide</h3>
+        <p>Does a CONTRIBUTING.md exist so contributors know the rules of the repo?</p>
+      </div>
+      <div class="check-card">
+        <div class="check-icon">✍️</div>
+        <h3>PR Description</h3>
+        <p>Is the PR description meaningful? Requires at least 30 characters of context.</p>
+      </div>
+      <div class="check-card">
+        <div class="check-icon">🌿</div>
+        <h3>Branch Name</h3>
+        <p>Does the branch follow convention? (<code>feat/</code>, <code>fix/</code>, <code>docs/</code>, <code>chore/</code>)</p>
+      </div>
+      <div class="check-card">
+        <div class="check-icon">🔍</div>
+        <h3>Broken Links</h3>
+        <p>Are all Markdown links in the PR description reachable? Checks with HTTP HEAD.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── INSTALL ──────────────────────────────────────────── -->
+  <section class="section" id="install">
+    <h2>Install in 60 seconds</h2>
+    <p class="section-sub">Add this file to your repo. That's it.</p>
+
+    <div class="install-steps">
+      <div class="install-step">
+        <span class="step-label">Step 1</span>
+        <p>Create <code>.github/workflows/pr-guardian.yml</code> in your repo:</p>
+        <div class="code-block">
+          <div class="code-header">
+            <span>.github/workflows/pr-guardian.yml</span>
+            <button class="copy-btn" id="copy-workflow-btn" onclick="copyCode('workflow-code', 'copy-workflow-btn')">Copy</button>
+          </div>
+          <pre id="workflow-code">name: PR Guardian
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  pull-requests: write
+  contents: read
+
+jobs:
+  pr-guardian:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: obaid/pr-guardian@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          fail_on_error: "false"   # set to "true" to block merging</pre>
+        </div>
+      </div>
+
+      <div class="install-step">
+        <span class="step-label">Step 2</span>
+        <p>Commit and push. PR Guardian will comment on every new PR automatically. ✅</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── LIVE CHECKER ─────────────────────────────────────── -->
+  <section class="section bg-alt" id="checker">
+    <h2>Try it live</h2>
+    <p class="section-sub">
+      Paste any public GitHub PR URL and an optional Personal Access Token to run all 7 checks right now.
+    </p>
+
+    <div class="checker-card">
+      <div class="form-group">
+        <label for="pr-url-input">GitHub PR URL</label>
+        <input
+          type="url"
+          id="pr-url-input"
+          placeholder="https://github.com/owner/repo/pull/123"
+          autocomplete="off"
+          spellcheck="false"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="token-input">
+          GitHub Personal Access Token
+          <span class="label-hint">(optional for public repos — needed for private repos)</span>
+        </label>
+        <input
+          type="password"
+          id="token-input"
+          placeholder="ghp_xxxxxxxxxxxxxxxxxxxx"
+          autocomplete="off"
+        />
+        <p class="token-note">🔒 Your token is sent directly to the API and is never stored or logged.</p>
+      </div>
+
+      <button class="btn-primary btn-run" id="run-checks-btn" onclick="runChecks()">
+        <span id="btn-text">Run Checks →</span>
+        <span id="btn-spinner" class="spinner hidden"></span>
+      </button>
+
+      <!-- Error message -->
+      <div id="error-box" class="error-box hidden"></div>
+
+      <!-- Results -->
+      <div id="results-section" class="results-section hidden">
+        <div class="results-header">
+          <span id="results-summary" class="results-summary"></span>
+          <div class="progress-bar-wrap">
+            <div id="progress-bar" class="progress-bar"></div>
+          </div>
+        </div>
+        <div id="results-grid" class="results-grid"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ───────────────────────────────────────────── -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <span>🛡️ PR Guardian · Built with Go + AWS Lambda</span>
+      <div class="footer-links">
+        <a href="https://github.com/obaid/pr-guardian" target="_blank" rel="noopener">GitHub</a>
+        <a href="#install">Install</a>
+        <a href="#checker">Live Demo</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
