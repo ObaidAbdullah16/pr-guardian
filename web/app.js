@@ -1,7 +1,7 @@
 // ── Configuration ─────────────────────────────────────────────
 // Replace this URL after you deploy your Lambda + API Gateway.
 // Example: "https://abc123.execute-api.us-east-1.amazonaws.com/check"
-const API_URL = "https://YOUR_API_GATEWAY_URL/check";
+const API_URL = "https://fdehan027k.execute-api.ap-south-1.amazonaws.com";
 
 // ── Main function: called when user clicks "Run Checks" ────────
 async function runChecks() {

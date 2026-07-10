@@ -1,0 +1,14 @@
+# Compiled binaries
+bootstrap
+pr-guardian-action
+*.exe
+
+# Lambda deployment artifact
+lambda.zip
+
+# Go test cache
+*.test
+
+# OS files
+.DS_Store
+Thumbs.db
